@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="SideBar.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="list-group list-group-flush">
+                <a href="#" id="user" class="list-group-item list-group-item-action bg-light">User</a>
+                
+            </div>
+        </div>
+
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <div class="container-fluid">
+                <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#myModal" id="add">Add</button>
+                <!--                <div id="demo"></div>-->
+                <div class="table-responsive">
+                    <table class=" table table-bordered table-stripped" id="user_table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>UserName</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Website</th>
+                            <th>Company</th>
+                            <th>Edit</th>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- The Modal -->
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">User Information</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                            <form action="/action_page.php"> <!--    here not to php file -->
+
+                                    <!--input new style -->
+                                    <div class="group">
+                                        <input type="text" id="name" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                        <label>Name</label>
+                                    </div>
+                                    <div class="group">
+                                        <input type="text" id="username" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                        <label>UserName</label>
+                                    </div>
+                                    <div class="group">
+                                        <input type="email" id="email" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                        <label>Email</label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div>Address:</div>
+                                        <div class="group">
+                                            <input type="text" id="street" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                            <label>Street:</label>
+                                        </div>
+                                        <div class="group">
+                                            <input type="text" id="suit" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                            <label>Suit</label>
+                                        </div>
+                                        <div class="group">
+                                            <input type="text" id="city" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                            <label>City</label>
+                                        </div>
+                                        <div class="group">
+                                            <input type="number" id="zipcode" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                            <label>Zipcode</label>
+                                        </div>
+                                        <div id="geo">Geo</div>
+                                        <div class="group">
+                                            <input type="number" id="lat" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                            <label>Lat</label>
+                                        </div>
+                                        <div class="group">
+                                            <input type="number" id="lng" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                            <label>Lng</label>
+                                        </div>
+                                    </div>
+                                    <div class="group">
+                                        <input type="tel" id="phone" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                        <label>Phone</label>
+                                    </div>
+                                    <div class="group">
+                                        <input type="url" id="website" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                        <label>Website</label>
+                                    </div>
+                                    <div class="group">
+                                        <div>Company:</div>
+                                        <div class="group">
+                                            <input type="text" id="companyname" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                            <label>Name</label>
+                                        </div>
+                                        <div class="group">
+                                            <input type="text" id="catchphrase" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                            <label>Catch Phrase</label>
+                                        </div>
+                                        <div class="group">
+                                            <input type="text" id="bs" required="required" /><span class="highlight"></span><span class="bar"></span>
+                                            <label>Bs</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" id="btnsave" class="btn btn-primary" data-dismiss="modal">Save</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <script>
+        var globaData, globaKey;
+        $(document).ready(function() {
+            // get Json
+            $('#user').click(function() {
+                $.getJSON('https://jsonplaceholder.typicode.com/users', function(data) {
+                    var user_data = '';
+                    // globaData = data;
+                    // console.log(globaData);
+                    $.each(data, function(key, value) { //globaKey=key; console.log(globaKey);
+                        user_data += '<tr>';
+                        user_data += '<td>' + value.id + '</td>';
+                        user_data += '<td>' + value.name + '</td>';
+                        user_data += '<td>' + value.username + '</td>';
+                        user_data += '<td>' + value.email + '</td>';
+                        user_data += '<td>' + JSON.stringify(value.address, null, 4) + '</td>';
+                        user_data += '<td>' + value.phone + '</td>';
+                        user_data += '<td>' + value.website + '</td>';
+                        user_data += '<td>' + JSON.stringify(value.company, null, 4) + '</td>';
+                        user_data += '<td><button type="button" class="btn btn-info btnedit" >Edit</button></td>';
+                        user_data += '</tr>';
+                    });
+                    $('#user_table').append(user_data);
+                });
+            });
+            //console.log(globaData);
+            //post request 
+            $("#btnsave").click(function() {
+                //console.log(globaData[0].phone);
+                $.post("https://jsonplaceholder.typicode.com/users", {
+                        name: $("#name").val(),
+                        username: $("#username").val(),
+                        email: $("#email").val(),
+                        street: $("#street").val(),
+                        suit: $("#suit").val(),
+                        city: $("#city").val(),
+                        zipcode: $("#zipcode").val(),
+                        lat: $("#lat").val(),
+                        lng: $("#lng").val(),
+                        phone: $("#phone").val(),
+                        website: $("#website").val(),
+                        company: $("#companyname").val(),
+                        catchphrase: $("#catchphrase").val(),
+                        bs: $("#bs").val()
+
+
+
+                    },
+                    function(data) {
+                        $('#user_table').append('<tr><td>' + data.id + '</td><td>' + data.name + '</td><td>' + data.username + '</td><td>' + data.email + '</td><td>' + data.address + '</td><td>' + data.phone + '</td><td>' + data.website + '</td><td>' + data.company + '</td><td>' + '<button type="button" id="btnedit" class="btn btn-info">' + 'Edit' + '</button>' + '</td></tr>');
+                    });
+            });
+
+
+            //get json with id 
+            $('.btnedit').click(function() {
+                alert("btnedit entered");
+                console.log("btnedit entered");
+                //$.get("https://jsonplaceholder.typicode.com/users/");
+            });
+
+        });
+    </script>
+</body></html>
