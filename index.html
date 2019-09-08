@@ -16,20 +16,24 @@
     <div class="d-flex" id="wrapper">
 
         <!-- Sidebar -->
-        <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="list-group list-group-flush">
+        <div class="bg-light border-right col-md-3  " id="sidebar-wrapper">
+            <div class="list-group list-group-flush" >
                 <a href="#" id="user" class="list-group-item list-group-item-action bg-light">User</a>
-                
+
+            </div>
+            <div class="list-group list-group-flush" >
+                <a href="#" id="dashboard" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+
             </div>
         </div>
 
 
         <!-- Page Content -->
-        <div id="page-content-wrapper">
+        <div class="col-md-9" id="page-content-wrapper">
 
             <div class="container-fluid">
                 <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#myModal" id="add">Add</button>
-                <!--                <div id="demo"></div>-->
+                <a href="#menu-toggle" class="btn btn-info" id="menu-toggle">Toggle Menu</a>
                 <div class="table-responsive">
                     <table class=" table table-bordered table-stripped" id="user_table">
                         <tr>
@@ -59,7 +63,8 @@
 
                             <!-- Modal body -->
                             <div class="modal-body">
-                            <form action="/action_page.php"> <!--    here not to php file -->
+                                <form action="/action_page.php">
+                                    <!--    here not to php file -->
 
                                     <!--input new style -->
                                     <div class="group">
@@ -147,6 +152,14 @@
     </div>
     <script>
         var globaData, globaKey;
+        
+        //        toogle btn
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+
+
         $(document).ready(function() {
             // get Json
             $('#user').click(function() {
